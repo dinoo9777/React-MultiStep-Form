@@ -24,7 +24,7 @@ const StepOne = () => {
 
   return (
     <div className="max-w-xl mx-auto bg-white p-6">
-      <h2 className="text-3xl font-semibold mb-1 text-center">Welcome! First things first…</h2>
+      <h2 className="text-3xl font-semibold mb-1 text-center">Welcome! First things First</h2>
       <p className="text-sm text-gray-500 mb-6 text-center">You can always change them later.</p>
         <div className="max-w-xs mx-auto">
             <div className="mb-4">
