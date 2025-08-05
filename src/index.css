@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --customBlue: #654ce5;
+  --customBrightBlue: #5b3fdb;
+}
+
+.bg-customBlue {
+  background-color: var(--customBlue);
+}
+
+.bg-customBrightBlue {
+  background-color: var(--customBrightBlue);
+}
