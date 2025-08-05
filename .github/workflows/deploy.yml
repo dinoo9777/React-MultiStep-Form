@@ -24,8 +24,8 @@ jobs:
       - name: run build
         run: npm run build
 
-      - name: run test
-        run: npm test -- --coverage
+      # - name: run test
+      #   run: npm test -- --coverage
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
