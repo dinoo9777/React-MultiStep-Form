@@ -50,19 +50,18 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
     workspaceUrl: "",
     usageType: "",
   });
+  // context/FormContext.tsx
   useEffect(() => {
-    const stored = localStorage.getItem("editableGridData");
-    if (stored) {
-        setFormDataList(JSON.parse(stored));
-    }
+      const stored = localStorage.getItem("editableGridData");
+      if (stored) {
+          setFormDataList(JSON.parse(stored));
+      }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("editableGridData", JSON.stringify(formDataList));
-  }, [formDataList]);
-
   const addFormData = (newData: UserFormData) => {
-      setFormDataList((prevList) => [...prevList, newData]);
+      const updatedList = [...formDataList, newData];
+      setFormDataList(updatedList);
+      localStorage.setItem("editableGridData", JSON.stringify(updatedList)); // ✅ persist
   };
 
   const updateFormData = (data: Partial<UserFormData>) => {
