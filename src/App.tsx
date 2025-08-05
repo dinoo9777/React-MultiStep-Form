@@ -7,7 +7,20 @@ import { useFormContext } from "./context/FormContext";
 
 const App = () => {
   const { currentStep } = useFormContext();
-
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <StepOne />;
+      case 2:
+        return <StepTwo />;
+      case 3:
+        return <StepThree />;
+      case 4:
+        return <StepFour />;
+      default:
+        return <StepOne />;
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       {/* Outer White Panel - 85% width */}
@@ -21,10 +34,7 @@ const App = () => {
 
           {/* Step Form */}
           <div>
-            {currentStep === 1 && <StepOne />}
-            {currentStep === 2 && <StepTwo />}
-            {currentStep === 3 && <StepThree />}
-            {currentStep === 4 && <StepFour />}
+            {renderStep()}
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import { useFormContext } from "../context/FormContext";
 import { FaUser, FaUsers } from "react-icons/fa";
 
 const usageOptions = [
-    {
-        forUser: "self",
-        icon: <FaUser className="text-2xl mb-2 text-gray-600" />,
-        title: "For myself",
-        description: "Write better. Think more clearly. Stay organized.",
+  {
+      forUser: "self",
+      icon: <FaUser className="text-2xl mb-2 text-gray-600" />,
+      title: "For myself",
+      description: "Write better. Think more clearly. Stay organized.",
   },
   {
     forUser: "team",
@@ -18,8 +18,8 @@ const usageOptions = [
 ];
 
 const StepThree = () => {
-    const { formData, updateFormData, nextStep, addFormData } = useFormContext();
-    const [error, setError] = useState("");
+  const { formData, updateFormData, nextStep, addFormData } = useFormContext();
+  const [error, setError] = useState("");
 
   const handleOptionClick = (type:any) => {
     updateFormData({ usageType: type });
@@ -31,12 +31,10 @@ const StepThree = () => {
         setError("Please select a usage type");
         return;
     }
-
     // ✅ Only add data when valid
     addFormData(formData);
     nextStep();
  };
-
 
   return (
     <div className="max-w-xl mx-auto bg-white p-6">
@@ -56,7 +54,13 @@ const StepThree = () => {
                   : "border-gray-300"
               }`}
             >
-              {option.icon}
+              {
+                <span>
+                  {React.cloneElement(option.icon, {
+                    className: formData.usageType === option.forUser ? "text-blue-900" : "",
+                  })}
+                </span>
+              }
               <h3 className="font-semibold">{option.title}</h3>
               <p className="text-sm text-gray-500">{option.description}</p>
             </div>

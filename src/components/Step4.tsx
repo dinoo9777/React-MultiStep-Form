@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "../context/FormContext";
 import type { UserFormData } from "../context/FormContext";
 import { FaCheckCircle } from "react-icons/fa";
@@ -36,23 +36,22 @@ const StepFour = () => {
     goToStep(1);
   };
 
-  const handleUpdateData = (index: number, updated: UserFormData) => {
+  const handleUpdateData = useCallback((index: number, updated: UserFormData) => {
     const updatedRows = [...gridData];
     updatedRows[index] = updated;
-
     // Update both context and local state
     setGridData(updatedRows);
     setFormDataList(updatedRows);
     localStorage.setItem("editableGridData", JSON.stringify(updatedRows));
-  };
+  }, [gridData]);
 
   const handleDelete = (indexToDelete: number) => {
-  const updated = [...formDataList];
-  updated.splice(indexToDelete, 1); // remove the item
-
-  setFormDataList(updated); // update context
-  localStorage.setItem("editableGridData", JSON.stringify(updated)); // persist
-};
+    if (!confirm("Are you sure you want to delete this record?")) return;
+    const updated = [...formDataList];
+    updated.splice(indexToDelete, 1); // remove the item
+    setFormDataList(updated); // update context
+    localStorage.setItem("editableGridData", JSON.stringify(updated)); // persist
+  };
 
   return (
     <div className="bg-white p-6 text-center">
@@ -74,11 +73,14 @@ const StepFour = () => {
       >
         + Add New Record
       </button>
-
-      <EditableGrid data={gridData} 
-      updateData={handleUpdateData} 
-      deleteData={handleDelete}
-      />
+      {
+        gridData.length > 0 && (
+          <EditableGrid data={gridData} 
+          updateData={handleUpdateData} 
+          deleteData={handleDelete}
+          />
+        )
+      }
     </div>
   );
 };
