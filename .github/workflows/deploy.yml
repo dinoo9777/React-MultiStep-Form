@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+    - main # trigger on push to branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout-repository
+      uses: actions/checkout@v3
+
+    - name: set up node.js
+      uses: actions/setup-node@v3
+      with: 
+        node-version: '22.17.0'
+    - name: Install dependency
+      run: npm install
+
+    - name: run build
+      run: npm run build
+      
+    - name: run test
+      run: npm test -- --coverage
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+      
