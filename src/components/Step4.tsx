@@ -51,6 +51,12 @@ const StepFour = () => {
     updated.splice(indexToDelete, 1); // remove the item
     setFormDataList(updated); // update context
     localStorage.setItem("editableGridData", JSON.stringify(updated)); // persist
+    if(updated.length == 0) {
+      setTimeout(() => {
+        alert("No data left. Resetting to step 1.");
+        handleAddNew(); // if no data left, reset to step 1
+      }, 100);
+    }
   };
 
   return (
